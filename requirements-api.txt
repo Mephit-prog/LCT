@@ -1,0 +1,5 @@
+-r requirements.txt
+# FastAPI backend for frontend integration (wineid.api). Review before production.
+fastapi>=0.110,<1
+uvicorn[standard]>=0.27,<1
+python-multipart>=0.0.9,<1

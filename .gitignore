@@ -1,0 +1,40 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Generated delivery (single authoritative source: wineid/)
+delivery/
+backend/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Environment variables & secrets
+.env
+.env.*
+
+# Generated evaluation predictions & heavy build artifacts
+predictions.jsonl
+artifacts/*
+!artifacts/.gitkeep
+!artifacts/tz/
+!artifacts/tz/**
+
+# System and editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large local archives and agent dialog exports
+*.zip
+*.tar.gz
+pi-session-*.html
+pi-session-*.htm
+
+# External unverified datasets
+external/

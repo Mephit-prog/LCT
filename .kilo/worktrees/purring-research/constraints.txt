@@ -1,0 +1,20 @@
+# Pinned versions of the offline stack verified together (STATUS.md B07).
+# Usage: python3 -m pip install -c constraints.txt -r requirements.txt
+#        python3 -m pip install -c constraints.txt -r requirements-api.txt
+#
+# These pins cover the catalog/search/pipeline/HTTP path and the test suite that
+# does NOT need model weights. The optional CLIP stack (torch/transformers/
+# open_clip_torch/timm/einops) is intentionally NOT pinned here: weights and HF
+# code are already pinned by commit SHA in wineid/jina_clip.py, but the exact
+# torch/transformers versions require a dedicated offline smoke run (see
+# tests/test_smoke_offline.py) before they can be frozen.
+Pillow==12.3.0
+numpy==2.5.3
+httpx==0.28.1
+pydantic==2.13.5
+fastapi==0.141.1
+uvicorn==0.54.0
+python-multipart==0.0.32
+opencv-python-headless==5.0.0.93
+fuzzywuzzy==0.18.0
+pytest==9.1.1

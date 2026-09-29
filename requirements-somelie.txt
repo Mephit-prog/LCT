@@ -1,0 +1,6 @@
+# Python 3.12 research environment (separate from API/CLIP stack).
+# python -m pip install -r requirements-somelie.txt
+numpy==2.5.3
+scipy==1.16.3
+pandas==2.3.3
+pytest==9.1.1

@@ -1,0 +1,4 @@
+INFO:     127.0.0.1:58280 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58280 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57463 - "POST /api/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57447 - "GET /api/wines/katharon-mezenka-risling-suhoe HTTP/1.1" 200 OK

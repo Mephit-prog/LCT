@@ -1,0 +1,8 @@
+# Offline API test/lint profile on Python 3.12; no model weights or external OCR.
+-r requirements-api.txt
+# ROI geometry tests use OpenCV but do not load any models.
+-r requirements-vision.txt
+# Offline document/PDF adapter tests (no API calls or local OCR models).
+-r requirements-mineru.txt
+pytest>=9,<10
+pyflakes>=3.4,<4
