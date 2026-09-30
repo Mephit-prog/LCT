@@ -26,7 +26,7 @@ class VisionSmokeTests(unittest.TestCase):
         classes = ROOT / 'artifacts/classes-lora-canonical.npz'
         adapter = ROOT / 'artifacts/lora/jina-clip-v2-lora-synthetic.pt'
         if not classes.is_file():
-            self.skipTest('build pinned class index first; see plans/REAL_RUN.md')
+            self.skipTest('build pinned class index first; see JINA_CLIP.md')
         wines, meta = load_catalog(ROOT / 'strapi_output0709.csv')
         vision = load_vision(wines, classes_path=classes, adapter_path=adapter,
                              allow_remote_code=True, device='cpu')

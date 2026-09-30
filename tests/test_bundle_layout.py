@@ -15,6 +15,11 @@ def test_bundle_single_backend_and_no_local_env(tmp_path):
     (source / 'web' / '.env').write_text('VITE_TOKEN=do-not-ship')
     (source / 'web' / 'node_modules').mkdir()
     (source / 'web' / 'node_modules' / 'old.js').write_text('old')
+    for name in ('.vite', 'coverage', 'dist'):
+        (source / 'web' / name).mkdir()
+        (source / 'web' / name / 'generated.js').write_text('generated')
+    (source / 'web' / 'tsconfig.app.tsbuildinfo').write_text('cache')
+    (source / 'web' / 'debug.log').write_text('debug')
     (source / 'local' / 'run-local.ps1').write_text('test')
     (source / 'local' / 'logs').mkdir()
     (source / 'local' / 'logs' / 'backend.log').write_text('secret')
@@ -27,6 +32,8 @@ def test_bundle_single_backend_and_no_local_env(tmp_path):
     assert not (out / 'web' / '.env').exists()
     assert not (out / 'web' / 'node_modules').exists()
     assert not (out / 'local' / 'logs').exists()
+    for name in ('.vite', 'coverage', 'dist', 'tsconfig.app.tsbuildinfo', 'debug.log'):
+        assert not (out / 'web' / name).exists()
     assert not (out / 'wineid').exists()
     # In-place assembly must not copy source trees onto themselves.
     assemble(source, source)

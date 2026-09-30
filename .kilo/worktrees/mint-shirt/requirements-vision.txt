@@ -1,4 +1,0 @@
--r requirements.txt
-# Optional only for experimental automatic bounding-box localization.
-# Check OpenCV license and build compatibility before production.
-opencv-python-headless>=4.8,<5

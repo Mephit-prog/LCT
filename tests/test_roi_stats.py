@@ -1,4 +1,4 @@
-"""ROI retention geometry (plans/jina_clip_roi_catalog_enrichment.md §2)."""
+"""Regression tests for ROI retention geometry."""
 import unittest
 
 from wineid.roi_stats import (box_stats, field_retentions, frame_fov, intersection,

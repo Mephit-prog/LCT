@@ -25,7 +25,8 @@ def assemble(root: Path, out: Path) -> None:
         shutil.copy2(root / name, backend / name)
     if out != root:  # In-place development bundle: web/local/guide already present.
         shutil.copytree(root / 'web', out / 'web', dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns('node_modules', 'dist', '.env', '.env.*'))
+                        ignore=shutil.ignore_patterns('node_modules', 'dist', '.vite', 'coverage',
+                                                     '*.tsbuildinfo', '*.log', '.env', '.env.*'))
         shutil.copytree(root / 'local', out / 'local', dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('logs', 'run'))
         shutil.copy2(root / 'RUN_GUIDE.md', out / 'RUN_GUIDE.md')

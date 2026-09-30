@@ -16,6 +16,7 @@ venv/
 # Environment variables & secrets
 .env
 .env.*
+!.env.example
 
 # Generated evaluation predictions & heavy build artifacts
 predictions.jsonl
@@ -38,3 +39,18 @@ pi-session-*.htm
 
 # External unverified datasets
 external/
+
+# Local development archives, agent worktrees and runtime output
+.temp/
+.kilo/
+local/logs/
+local/run/
+*.log
+*.pid
+
+# Frontend dependencies and generated output
+node_modules/
+.vite/
+dist/
+coverage/
+*.tsbuildinfo

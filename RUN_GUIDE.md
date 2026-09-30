@@ -9,6 +9,12 @@
 - **Node.js** (версии 18+ и npm)
 - Установленные зависимости (модели, LoRA адаптеры и классификаторы) в папке `backend/artifacts`.
 
+Эта инструкция относится к собранному Windows-комплекту, а не к чистому клону.
+Подготовка: `python build_windows_bundle.py D:\LCT --provision` на Windows;
+ограничения поставки описаны в [DELIVERY_STATUS.md](DELIVERY_STATUS.md).
+Веса и индексы не входят в Git. Токен получите у провайдера и не коммитьте;
+ранее опубликованный токен необходимо отозвать.
+
 ---
 
 ## 1. Запуск бэкенда (FastAPI)
@@ -25,7 +31,7 @@
    $env:WINE_ADAPTER="artifacts/lora/jina-clip-v2-lora-synthetic.pt"
    $env:WINE_ALLOW_REMOTE_CODE="1"
    $env:WINE_OCR_PROVIDER="mineru"
-   $env:MINERU_TOKEN="sk-vJmPsz6ejTvxEwBEMSP4OGSeUKsP2MJ02uOeYSiq1jIlQm5H"
+   $env:MINERU_TOKEN="<ваш токен MinerU>"
    $env:WINE_REQUEST_TIMEOUT="60.0"
    ```
 

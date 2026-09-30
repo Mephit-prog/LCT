@@ -1,7 +1,0 @@
-Pillow>=10,<12
-httpx>=0.27,<1
-numpy>=1.24,<3
-# fuzzywuzzy is GPL-2.0 and is retained by decision (review P1-6) as the single
-# production ranking backend for wineid.search; when it is absent the module
-# activates a non-score-compatible difflib fallback for offline tests only.
-fuzzywuzzy>=0.18,<1
