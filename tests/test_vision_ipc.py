@@ -293,3 +293,24 @@ def test_startup_mismatch_and_fork_refusal(fake):
     finally:
         worker._owner = os.getpid()
         worker.close()
+
+
+def test_large_frame_is_downscaled_for_vision_not_refused(fake):
+    # Phone photos exceed 6 MP; Jina resizes to 512 px anyway, so the worker
+    # must get a downscaled copy instead of answering vision_input_too_large.
+    make, _ = fake
+    worker = make('ok')
+    try:
+        worker.start()
+        big = Image.new('RGB', (4000, 2000), 'white')
+        vectors = worker.encode_images_deadline([big], time.monotonic() + 5)
+        assert vectors.shape == (1, 2)
+        assert big.size == (4000, 2000)  # caller's image untouched
+        buf = io.BytesIO()
+        big.save(buf, 'JPEG')
+        client = TestClient(create_app(build_pipe(worker)))
+        response = client.post('/v1/eval/predict', files={'image': ('big.jpg', buf.getvalue())})
+        assert response.status_code == 200, response.json()
+        assert response.json()['slug'] in ('a', 'b')
+    finally:
+        worker.close()

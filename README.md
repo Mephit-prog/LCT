@@ -12,6 +12,26 @@
 - `local/run-local.ps1` — управление локальным запуском на Windows.
 - `strapi_output0709.csv`, `producer_aliases.txt`, `artifacts/tz/` — данные каталога и справочники.
 
+## Прогон на датасете организаторов
+
+Нужны Python 3.12, `bash`, `curl`, `jq`, `awk` (на Windows — Git Bash). Сетап один раз:
+
+```bash
+python -m venv .venv
+.venv/Scripts/python -m pip install torch==2.14.0 torchvision==0.29.0 --index-url https://download.pytorch.org/whl/cu130   # Linux: .venv/bin/python
+.venv/Scripts/python -m pip install -c constraints.txt -r requirements-dev.txt -r requirements-clip.txt
+```
+
+Без GPU ставьте обычный `torch` из PyPI. Запуск на распакованном пакете организатора (`queries/`, `queries.tsv`, `participant_test.sh`):
+
+```bash
+bash ./run.sh <папка_датасета>
+```
+
+`run.sh` поднимает API на `127.0.0.1:8080` (CLIP Jina v2 + LoRA `artifacts/lora/jina-clip-v2-lora-synthetic.pt`, индекс `artifacts/classes-lora-canonical.npz`), ждёт готовности, запускает runner организаторов и пишет `results/<папка>-predictions.jsonl`. При первом запуске веса Jina скачиваются с Hugging Face. Облачный OCR MinerU по умолчанию выключен: он не укладывается в 10-секундный лимит runner; включается `WINE_USE_OCR=1` и `MINERU_TOKEN` в `.env` (шаблон — `.env.example`).
+
+Результат финального датасета: [results/final-predictions.jsonl](results/final-predictions.jsonl), 100/100 ответов, p50 0,7 с.
+
 ## Локальная разработка
 
 Для проверок используйте Python 3.12 и Node.js 18+.

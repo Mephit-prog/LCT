@@ -16,9 +16,12 @@ import subprocess
 import sys
 import threading
 import time
+from PIL import Image
+
 from .jina_clip import unit_vectors
 
 MAX_REQUEST = 128 * 1024 * 1024  # max three lossless RGB views, including base64
+MAX_VISION_PIXELS = 6_000_000
 MAX_REPLY = 256 * 1024
 RECOVERY_DELAY = 1.0
 
@@ -257,8 +260,14 @@ class IsolatedVisionEncoder:
             for image in images:
                 if time.monotonic() >= deadline:
                     raise TimeoutError('deadline')
-                if image.width * image.height > 6_000_000 or len(images) > 3:
+                if len(images) > 3:
                     raise VisionWorkerError('vision_input_too_large')
+                if image.width * image.height > MAX_VISION_PIXELS:
+                    # Jina resizes to 512 px anyway: send a downscaled copy of a
+                    # phone-sized frame instead of refusing it.
+                    scale = (MAX_VISION_PIXELS / (image.width * image.height)) ** 0.5
+                    image = image.resize((max(1, int(image.width * scale)),
+                                          max(1, int(image.height * scale))), Image.BICUBIC)
                 output = io.BytesIO()
                 image.save(output, format='PNG')  # lossless; same RGB pixels as in-process Jina
                 if time.monotonic() >= deadline:
